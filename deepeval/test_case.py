@@ -61,6 +61,16 @@ class LLMTestCase:
             raise TypeError("'context' must be a list of strings or None")
         if self.retrieval_context is not None and not isinstance(self.retrieval_context, list):
             raise TypeError("'retrieval_context' must be a list of strings or None")
+        # Warn if both context and retrieval_context are provided, as this can be confusing
+        # when running RAG-based metrics vs. general context-aware metrics.
+        if self.context is not None and self.retrieval_context is not None:
+            import warnings
+            warnings.warn(
+                "Both 'context' and 'retrieval_context' are set. "
+                "Ensure you're using the correct field for your metric.",
+                UserWarning,
+                stacklevel=2,
+            )
 
 
 @dataclass
@@ -74,22 +84,4 @@ class ConversationalTestCase:
         _dataset_rank: Internal rank used when part of a dataset.
     """
 
-    turns: List[LLMTestCase]
-    additional_metadata: Optional[Dict[str, Any]] = field(default_factory=dict)
-    comments: Optional[str] = None
-    _dataset_rank: Optional[int] = field(default=None, repr=False)
-
-    def __post_init__(self):
-        """Validate that turns is a non-empty list of LLMTestCase objects."""
-        if not isinstance(self.turns, list) or len(self.turns) == 0:
-            raise ValueError("'turns' must be a non-empty list of LLMTestCase objects")
-        for i, turn in enumerate(self.turns):
-            if not isinstance(turn, LLMTestCase):
-                raise TypeError(
-                    f"Each turn must be an LLMTestCase instance, "
-                    f"got {type(turn).__name__} at index {i}"
-                )
-
-
-# Type alias for convenience
-TestCase = Union[LLMTestCase, ConversationalTestCase]
+    
