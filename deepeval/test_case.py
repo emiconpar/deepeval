@@ -61,6 +61,11 @@ class LLMTestCase:
             raise TypeError("'context' must be a list of strings or None")
         if self.retrieval_context is not None and not isinstance(self.retrieval_context, list):
             raise TypeError("'retrieval_context' must be a list of strings or None")
+        # Validate that tools_called and expected_tools are lists when provided
+        if self.tools_called is not None and not isinstance(self.tools_called, list):
+            raise TypeError("'tools_called' must be a list of strings or None")
+        if self.expected_tools is not None and not isinstance(self.expected_tools, list):
+            raise TypeError("'expected_tools' must be a list of strings or None")
         # Warn if both context and retrieval_context are provided, as this can be confusing
         # when running RAG-based metrics vs. general context-aware metrics.
         if self.context is not None and self.retrieval_context is not None:
@@ -71,17 +76,3 @@ class LLMTestCase:
                 UserWarning,
                 stacklevel=2,
             )
-
-
-@dataclass
-class ConversationalTestCase:
-    """Represents a multi-turn conversational test case.
-
-    Attributes:
-        turns: A list of LLMTestCase objects representing each turn in the conversation.
-        additional_metadata: Any extra metadata associated with the conversation.
-        comments: Human-readable notes about the test case.
-        _dataset_rank: Internal rank used when part of a dataset.
-    """
-
-    
