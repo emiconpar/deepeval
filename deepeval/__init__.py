@@ -6,6 +6,13 @@ Large Language Model outputs with customizable metrics.
 Fork notes:
 - Forked from confident-ai/deepeval for personal learning and experimentation
 - See CHANGELOG.md for local modifications
+
+Usage:
+    from deepeval import evaluate, LLMTestCase
+    from deepeval.metrics import AnswerRelevancyMetric
+
+    test_case = LLMTestCase(input="...", actual_output="...")
+    evaluate([test_case], [AnswerRelevancyMetric()])
 """
 
 __version__ = "0.1.0"
