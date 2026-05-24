@@ -2,6 +2,8 @@
 
 This module provides various evaluation metrics for LLM outputs,
 including answer relevancy, faithfulness, contextual precision, and more.
+
+Note: Import GEval and SummarizationMetric added for convenience.
 """
 
 from deepeval.metrics.answer_relevancy import AnswerRelevancyMetric
@@ -13,6 +15,9 @@ from deepeval.metrics.hallucination import HallucinationMetric
 from deepeval.metrics.bias import BiasMetric
 from deepeval.metrics.toxicity import ToxicityMetric
 from deepeval.metrics.base_metric import BaseMetric
+# Commonly used metrics that are easy to miss in the docs
+from deepeval.metrics.g_eval import GEval
+from deepeval.metrics.summarization import SummarizationMetric
 
 __all__ = [
     "BaseMetric",
@@ -24,4 +29,6 @@ __all__ = [
     "HallucinationMetric",
     "BiasMetric",
     "ToxicityMetric",
+    "GEval",
+    "SummarizationMetric",
 ]
