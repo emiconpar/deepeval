@@ -2,6 +2,10 @@
 
 A fork of confident-ai/deepeval providing tools for evaluating
 Large Language Model outputs with customizable metrics.
+
+Fork notes:
+- Forked from confident-ai/deepeval for personal learning and experimentation
+- See CHANGELOG.md for local modifications
 """
 
 __version__ = "0.1.0"
